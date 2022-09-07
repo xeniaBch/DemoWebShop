@@ -46,13 +46,13 @@ public class TestBase {
         return driver.findElements(locator).size() > 0;
     }
 
-    public void registration(int i) {
+    public void registration(String name, String lastname, String email, String password) {
         click(By.cssSelector("#gender-male"));
-        type(By.cssSelector("#FirstName"), "Harry");
-        type(By.cssSelector("#LastName"), "Potter");
-        type(By.cssSelector("#Email"), "harrypotter"+ i +"@hogwards.com");
-        type(By.cssSelector("#Password"), "1q2w3e4r5t");
-        type(By.cssSelector("#ConfirmPassword"), "1q2w3e4r5t");
+        type(By.cssSelector("#FirstName"),name);
+        type(By.cssSelector("#LastName"), lastname);
+        type(By.cssSelector("#Email"), email);
+        type(By.cssSelector("#Password"), password);
+        type(By.cssSelector("#ConfirmPassword"), password);
         click(By.cssSelector("#register-button"));
     }
 
