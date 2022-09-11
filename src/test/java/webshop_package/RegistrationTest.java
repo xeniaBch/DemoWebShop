@@ -1,11 +1,12 @@
 package webshop_package;
 
-import org.openqa.selenium.By;
+import model.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import utils.DataProviders;
 
-public class RegistrationTest extends TestBase{
+public class RegistrationTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
@@ -19,9 +20,17 @@ public class RegistrationTest extends TestBase{
     @Test
     public void registrationPositiveTest() {
         int i = (int) ((System.currentTimeMillis() / 1000) % 3600);
-        Assert.assertTrue(isElementPresent(By.cssSelector(".registration-page")));
-        registration("Harry", "Potter", "harrypotter"+ i +"@hogwards.com", "1q2w3e4r5t");
+        Assert.assertTrue(isRegistrationPagePresent());
+        registration(new User().setName("Harry").setLastname("Potter").setEmail("harrypotter" + i + "@hogwards.com").setPassword("1q2w3e4r5t"));
         Assert.assertTrue(isLogoutLinkPresent());
     }
 
+
+    @Test(dataProvider = "RegistrationWithCsv" , dataProviderClass = DataProviders.class)
+    public void registrationPositiveTestFromDataProviderWithCsv(User user) {
+        Assert.assertTrue(isRegistrationPagePresent());
+        registration(user);
+        Assert.assertTrue(isLogoutLinkPresent());
+    }
 }
+

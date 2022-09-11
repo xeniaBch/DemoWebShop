@@ -1,5 +1,6 @@
 package webshop_package;
 
+import model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -46,13 +47,17 @@ public class TestBase {
         return driver.findElements(locator).size() > 0;
     }
 
-    public void registration(String name, String lastname, String email, String password) {
+    public boolean isRegistrationPagePresent() {
+        return isElementPresent(By.cssSelector(".registration-page"));
+    }
+
+    public void registration(User user) {
         click(By.cssSelector("#gender-male"));
-        type(By.cssSelector("#FirstName"),name);
-        type(By.cssSelector("#LastName"), lastname);
-        type(By.cssSelector("#Email"), email);
-        type(By.cssSelector("#Password"), password);
-        type(By.cssSelector("#ConfirmPassword"), password);
+        type(By.cssSelector("#FirstName"), user.getName());
+        type(By.cssSelector("#LastName"), user.getLastname());
+        type(By.cssSelector("#Email"), user.getEmail());
+        type(By.cssSelector("#Password"), user.getPassword());
+        type(By.cssSelector("#ConfirmPassword"), user.getPassword());
         click(By.cssSelector("#register-button"));
     }
 
